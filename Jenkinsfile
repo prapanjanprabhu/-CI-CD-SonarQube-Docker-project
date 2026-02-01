@@ -19,19 +19,20 @@ pipeline {
             }
         }
 
-        stage('SonarQube Scan') {
-            steps {
-                withSonarQubeEnv("${SONAR_ENV}") {
-                    bat """
-                    mvn sonar:sonar ^
-                    -Dsonar.projectKey=devops-app ^
-                    -Dsonar.host.url=http://localhost:9000
-                    """
-                }
+stage('SonarQube Scan') {
+    steps {
+        withSonarQubeEnv('sonarqube') {
+            withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                bat """
+                mvn sonar:sonar ^
+                -Dsonar.projectKey=devops-app ^
+                -Dsonar.host.url=http://localhost:9000 ^
+                -Dsonar.login=%SONAR_TOKEN%
+                """
             }
         }
-
-
+    }
+}
 
 
 
