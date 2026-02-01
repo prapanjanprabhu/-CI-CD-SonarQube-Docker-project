@@ -1,14 +1,16 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'maven-3.9.12'
+    }
+
     environment {
         DOCKER_IMAGE = "dockerhubusername/devops-app"
         SONAR_ENV = "sonarqube"
     }
 
     stages {
-
-
 
         stage('Build & Test') {
             steps {
@@ -30,7 +32,7 @@ pipeline {
 
         stage('Quality Gate') {
             steps {
-                timeout(time: 1, unit: 'MINUTES') {
+                timeout(time: 2, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
             }
@@ -68,7 +70,3 @@ pipeline {
         }
     }
 }
-
-
-
-
