@@ -1,9 +1,10 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'maven-3.9.12'
-    }
+  tools {
+    maven 'Maven3.9.12'
+}
+
 
     environment {
         DOCKER_IMAGE = "dockerhubusername/devops-app"
