@@ -21,12 +21,12 @@ pipeline {
 
 stage('SonarQube Analysis') {
   steps {
-    withSonarQubeEnv('sonarqube') {   // <-- must match the SonarQube Server Name configured in Jenkins
+    withSonarQubeEnv('sonarqube') {   // matches what Jenkins printed in console
       withCredentials([string(credentialsId: 'sonar-token00', variable: 'SONAR_TOKEN')]) {
-        sh """
-          mvn -B clean verify sonar:sonar \
-            -Dsonar.token=$SONAR_TOKEN
-        """
+        bat '''
+          mvn -B clean verify sonar:sonar ^
+            -Dsonar.token=%SONAR_TOKEN%
+        '''
       }
     }
   }
