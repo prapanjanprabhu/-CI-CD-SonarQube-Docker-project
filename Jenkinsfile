@@ -8,12 +8,7 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git branch: 'main',
-                url: 'https://github.com/yourusername/ci-cd-sonarqube-docker.git'
-            }
-        }
+
 
         stage('Build & Test') {
             steps {
