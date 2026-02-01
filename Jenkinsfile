@@ -62,7 +62,6 @@ pipeline {
             }
         }
 
-
         stage('Deploy Container') {
             steps {
                 bat """
