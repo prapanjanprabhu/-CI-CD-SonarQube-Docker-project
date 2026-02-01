@@ -23,12 +23,13 @@ stage('SonarQube Scan') {
     steps {
         withSonarQubeEnv('sonarqube') {
             withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                bat """
-                mvn sonar:sonar ^
+                bat '''
+                mvn -X sonar:sonar ^
                 -Dsonar.projectKey=devops-app ^
+                -Dsonar.projectName=devops-app ^
                 -Dsonar.host.url=http://localhost:9000 ^
-                -Dsonar.login=%SONAR_TOKEN%
-                """
+                -Dsonar.token=%SONAR_TOKEN%
+                '''
             }
         }
     }
